@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CMDB Dashboard</title>
+<style>
+:root{--bg:#f4f7fb;--panel:#fff;--ink:#172033;--muted:#697586;--line:#e4e9f1;--blue:#3157d5;--blue2:#eaf0ff;--green:#14805e;--amber:#b86a08;--red:#c43d4b;--sidebar:#111b31}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Inter,Segoe UI,Arial,sans-serif}
+.app{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--sidebar);color:#d7deed;padding:24px 15px}.brand{display:flex;gap:10px;align-items:center;font-size:18px;font-weight:750;color:#fff;margin:0 10px 32px}.logo{width:34px;height:34px;border-radius:10px;background:#4265e8;display:grid;place-items:center;font-weight:800}.nav-label{color:#8491ad;font-size:11px;text-transform:uppercase;letter-spacing:1.2px;padding:0 12px;margin:22px 0 8px}.nav a{display:flex;gap:12px;align-items:center;color:#c3cce0;text-decoration:none;padding:11px 12px;border-radius:9px;margin:3px 0}.nav a.active,.nav a:hover{background:#26375b;color:white}.nav .ico{width:18px;text-align:center}.side-note{margin:40px 8px 0;padding:14px;border:1px solid #33405b;border-radius:12px;color:#aeb9d0;font-size:12px}.main{min-width:0;padding:28px 32px}.topbar{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:25px}.eyebrow{font-size:12px;color:var(--muted);margin-bottom:4px}.page-title{font-size:27px;line-height:1.2;margin:0;font-weight:750;letter-spacing:-.6px}.top-actions{display:flex;gap:10px;align-items:center}.btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:9px;padding:10px 13px;font-weight:650;cursor:pointer}.btn.primary{background:var(--blue);color:#fff;border-color:var(--blue)}.profile{display:flex;align-items:center;gap:9px;margin-left:5px}.avatar{background:#dce5ff;color:#2946a8;border-radius:50%;width:36px;height:36px;display:grid;place-items:center;font-weight:750}.profile small{display:block;color:var(--muted)}.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}.filters input,.filters select{background:white;border:1px solid var(--line);border-radius:9px;padding:10px 12px;color:var(--ink);min-width:160px}.filters input{flex:1;min-width:220px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:20px}.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:19px;box-shadow:0 3px 12px #18264a05}.stat-head{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;font-weight:650}.stat-icon{width:34px;height:34px;border-radius:10px;background:var(--blue2);color:var(--blue);display:grid;place-items:center;font-size:17px}.stat-number{font-size:29px;font-weight:760;letter-spacing:-.8px;margin:12px 0 3px}.stat-foot{font-size:12px;color:var(--muted)}.positive{color:var(--green);font-weight:700}.layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,1fr);gap:16px;margin-bottom:18px}.card-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:17px}.card-title h2{font-size:15px;margin:0;font-weight:750}.card-title span{font-size:12px;color:var(--muted)}.bar-row{display:grid;grid-template-columns:100px 1fr 35px;gap:10px;align-items:center;margin:16px 0;font-size:12px}.track{height:9px;border-radius:99px;background:#edf1f7;overflow:hidden}.fill{height:100%;border-radius:99px;background:#4b6ee8}.fill.green{background:#20a17a}.fill.orange{background:#e7a23c}.fill.red{background:#d95c68}.bar-row strong{text-align:right}.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:11px;margin-top:18px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.health{display:grid;grid-template-columns:140px 1fr;gap:20px;align-items:center}.ring{width:132px;height:132px;border-radius:50%;background:conic-gradient(#20a17a 0 68%,#e7a23c 68% 88%,#d95c68 88% 100%);display:grid;place-items:center;position:relative}.ring:before{content:"";position:absolute;inset:13px;border-radius:50%;background:#fff}.ring-text{z-index:1;text-align:center}.ring-text strong{font-size:27px;display:block}.ring-text span{font-size:11px;color:var(--muted)}.health-list{display:grid;gap:13px}.health-item{display:flex;justify-content:space-between;gap:8px}.health-item span{color:var(--muted)}.status{padding:4px 8px;border-radius:99px;font-size:11px;font-weight:700;white-space:nowrap}.status.active{background:#e4f7ef;color:#137451}.status.maintenance{background:#fff2d9;color:#9b5a04}.status.retired{background:#fce8ea;color:#b52f3c}.status.review{background:#eaf0ff;color:#3157d5}.table-card{padding:0;overflow:hidden}.table-head{padding:19px 20px 0}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th,td{text-align:left;padding:13px 18px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;background:#fbfcfe}td{font-size:12px}tbody tr:hover{background:#f9fbff}.asset-name{font-weight:700;font-size:13px}.subtext{font-size:11px;color:var(--muted);margin-top:2px}.asset-id{font-family:Consolas,monospace;color:#52627a}.table-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 18px;color:var(--muted);font-size:12px}.pagination{display:flex;gap:6px}.pagination button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:5px 9px;cursor:pointer}.empty{text-align:center;padding:30px;color:var(--muted)}.toast{position:fixed;right:20px;bottom:20px;background:#172033;color:white;padding:12px 16px;border-radius:10px;display:none;box-shadow:0 8px 30px #0002}.footer{color:#8993a4;font-size:11px;text-align:right;margin-top:16px}
+@media(max-width:1050px){.app{grid-template-columns:200px minmax(0,1fr)}.main{padding:22px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}}
+@media(max-width:700px){.app{grid-template-columns:1fr}.sidebar{padding:13px}.brand{margin:0 8px 12px}.nav{display:flex;overflow:auto;gap:4px}.nav-label,.side-note{display:none}.nav a{white-space:nowrap;padding:9px}.main{padding:18px 13px}.topbar{align-items:flex-start;flex-direction:column}.top-actions{width:100%;flex-wrap:wrap}.profile{margin-left:auto}.stats{gap:10px}.card{padding:14px}.health{grid-template-columns:1fr;justify-items:center}.health-list{width:100%}.page-title{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">C</div> AssetFlow <span style="font-size:10px;color:#91a2c7;font-weight:500">CMDB</span></div>
+  <div class="nav-label">Workspace</div>
+  <nav class="nav">
+    <a href="#overview" class="active"><span class="ico">▦</span> Overview</a>
+    <a href="#assets"><span class="ico">▣</span> All assets</a>
+    <a href="#assets"><span class="ico">⌘</span> Computers</a>
+    <a href="#assets"><span class="ico">◉</span> Network devices</a>
+    <a href="#assets"><span class="ico">▤</span> Software & licenses</a>
+    <a href="#assets"><span class="ico">♙</span> Users & ownership</a>
+  </nav>
+  <div class="nav-label">Management</div>
+  <nav class="nav">
+    <a href="#assets"><span class="ico">⚑</span> Lifecycle & warranty</a>
+    <a href="#assets"><span class="ico">⚠</span> Audit & compliance</a>
+    <a href="#assets"><span class="ico">⚙</span> Settings</a>
+  </nav>
+  <div class="side-note"><strong style="color:#fff">CMDB workspace</strong><br><br>Sample dashboard with local demo data. Import your inventory to make it your own.</div>
+</aside>
+<main class="main" id="overview">
+  <header class="topbar">
+    <div><div class="eyebrow">IT OPERATIONS / CONFIGURATION MANAGEMENT</div><h1 class="page-title">CMDB Dashboard</h1><div class="eyebrow" style="margin-top:7px">Asset visibility, ownership and lifecycle at a glance.</div></div>
+    <div class="top-actions"><button class="btn" id="exportBtn">↓ Export CSV</button><button class="btn primary" id="addBtn">＋ Add asset</button><div class="profile"><div class="avatar">IT</div><div><strong>IT Admin</strong><small>Administrator</small></div></div></div>
+  </header>
+  <section class="filters" aria-label="Asset filters">
+    <input id="searchInput" type="search" placeholder="Search asset, owner, serial number…" aria-label="Search assets">
+    <select id="typeFilter" aria-label="Filter by type"><option value="">All asset types</option><option>Laptop</option><option>Desktop</option><option>Network</option><option>Server</option><option>Mobile</option></select>
+    <select id="statusFilter" aria-label="Filter by status"><option value="">All statuses</option><option>Active</option><option>Maintenance</option><option>Retired</option><option>Review</option></select>
+    <select id="locationFilter" aria-label="Filter by location"><option value="">All locations</option><option>Coimbatore</option><option>Chennai</option><option>Remote</option><option>Data Center</option></select>
+  </section>
+  <section class="stats">
+    <div class="card"><div class="stat-head">Total assets <span class="stat-icon">▣</span></div><div class="stat-number" id="totalCount">248</div><div class="stat-foot"><span class="positive">↑ 12</span> added this quarter</div></div>
+    <div class="card"><div class="stat-head">Active assets <span class="stat-icon">✓</span></div><div class="stat-number" id="activeCount">198</div><div class="stat-foot">Assigned and in service</div></div>
+    <div class="card"><div class="stat-head">Needs attention <span class="stat-icon" style="background:#fff2df;color:#b86a08">!</span></div><div class="stat-number" id="attentionCount">31</div><div class="stat-foot">Maintenance or review required</div></div>
+    <div class="card"><div class="stat-head">Warranty expiring <span class="stat-icon" style="background:#fce9eb;color:#c43d4b">◷</span></div><div class="stat-number" id="warrantyCount">18</div><div class="stat-foot">Within the next 90 days</div></div>
+  </section>
+  <section class="layout">
+    <div class="card"><div class="card-title"><h2>Asset inventory</h2><span>By category · demo values</span></div>
+      <div class="bar-row"><span>Laptops</span><div class="track"><div class="fill" style="width:78%"></div></div><strong>126</strong></div>
+      <div class="bar-row"><span>Desktops</span><div class="track"><div class="fill green" style="width:34%"></div></div><strong>55</strong></div>
+      <div class="bar-row"><span>Network</span><div class="track"><div class="fill orange" style="width:19%"></div></div><strong>31</strong></div>
+      <div class="bar-row"><span>Servers</span><div class="track"><div class="fill" style="width:12%"></div></div><strong>20</strong></div>
+      <div class="bar-row"><span>Other</span><div class="track"><div class="fill red" style="width:10%"></div></div><strong>16</strong></div>
+      <div class="legend"><span><i class="dot" style="background:#4b6ee8"></i>End-user devices</span><span><i class="dot" style="background:#e7a23c"></i>Infrastructure</span><span><i class="dot" style="background:#d95c68"></i>Other</span></div>
+    </div>
+    <div class="card"><div class="card-title"><h2>Asset health</h2><span>Current snapshot</span></div>
+      <div class="health"><div class="ring"><div class="ring-text"><strong>88%</strong><span>In good standing</span></div></div>
+        <div class="health-list">
+          <div class="health-item"><span><i class="dot" style="background:#20a17a"></i>Active</span><strong>198</strong></div>
+          <div class="health-item"><span><i class="dot" style="background:#e7a23c"></i>Maintenance</span><strong>19</strong></div>
+          <div class="health-item"><span><i class="dot" style="background:#d95c68"></i>Retired</span><strong>12</strong></div>
+          <div class="health-item"><span><i class="dot" style="background:#4b6ee8"></i>Review</span><strong>19</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="card table-card" id="assets">
+    <div class="table-head"><div class="card-title"><h2>Recently updated assets</h2><span id="resultCount">8 records</span></div></div>
+    <div class="table-wrap"><table><thead><tr><th>Asset</th><th>Asset ID</th><th>Type</th><th>Assigned to</th><th>Location</th><th>Status</th><th>Last updated</th></tr></thead><tbody id="assetRows"></tbody></table></div>
+    <div class="table-footer"><span id="tableSummary">Showing demo inventory</span><div class="pagination"><button id="resetBtn">Reset filters</button></div></div>
+  </section>
+  <div class="footer">AssetFlow CMDB · Demo dashboard · Replace sample records with your approved inventory</div>
+</main>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const assets = [
+ {name:"ThinkPad P14s Gen 5",id:"CD-LT-0248",type:"Laptop",owner:"Arun Kumar",location:"Coimbatore",status:"Active",updated:"14 Oct 2026"},
+ {name:"Lenovo V14 G4",id:"CD-LT-0247",type:"Laptop",owner:"Priya S",location:"Chennai",status:"Active",updated:"14 Oct 2026"},
+ {name:"HP EliteBook 840 G3",id:"CD-LT-0182",type:"Laptop",owner:"Unassigned",location:"Coimbatore",status:"Review",updated:"13 Oct 2026"},
+ {name:"FortiGate Firewall",id:"CD-NW-0031",type:"Network",owner:"IT Infrastructure",location:"Chennai",status:"Active",updated:"13 Oct 2026"},
+ {name:"HP Notebook 240 G8",id:"CD-LT-0164",type:"Laptop",owner:"Karthik R",location:"Remote",status:"Maintenance",updated:"12 Oct 2026"},
+ {name:"Core Switch - Floor 2",id:"CD-NW-0028",type:"Network",owner:"IT Infrastructure",location:"Coimbatore",status:"Active",updated:"12 Oct 2026"},
+ {name:"Virtualization Host 01",id:"CD-SV-0007",type:"Server",owner:"Cloud Operations",location:"Data Center",status:"Review",updated:"11 Oct 2026"},
+ {name:"MacBook Air M2",id:"CD-MB-0016",type:"Laptop",owner:"Meena V",location:"Chennai",status:"Active",updated:"10 Oct 2026"},
+ {name:"Reception Desktop",id:"CD-DT-0041",type:"Desktop",owner:"Front Office",location:"Coimbatore",status:"Retired",updated:"09 Oct 2026"},
+ {name:"Android Test Device",id:"CD-MB-0008",type:"Mobile",owner:"QA Team",location:"Remote",status:"Maintenance",updated:"08 Oct 2026"}
+];
+const $ = id => document.getElementById(id);
+function statusClass(s){return s.toLowerCase()}
+function render(){
+ const q=$("searchInput").value.trim().toLowerCase(), type=$("typeFilter").value, status=$("statusFilter").value, loc=$("locationFilter").value;
+ const filtered=assets.filter(a=>(!q||Object.values(a).some(v=>String(v).toLowerCase().includes(q)))&&(!type||a.type===type)&&(!status||a.status===status)&&(!loc||a.location===loc));
+ $("assetRows").innerHTML=filtered.length?filtered.map(a=>`<tr><td><div class="asset-name">${esc(a.name)}</div><div class="subtext">${esc(a.type)} asset</div></td><td class="asset-id">${esc(a.id)}</td><td>${esc(a.type)}</td><td>${esc(a.owner)}</td><td>${esc(a.location)}</td><td><span class="status ${statusClass(a.status)}">${esc(a.status)}</span></td><td>${esc(a.updated)}</td></tr>`).join(""):`<tr><td colspan="7" class="empty">No assets match your filters.</td></tr>`;
+ $("resultCount").textContent=`${filtered.length} records`;
+ $("tableSummary").textContent=`Showing ${filtered.length} of ${assets.length} sample records`;
+}
+function esc(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+["searchInput","typeFilter","statusFilter","locationFilter"].forEach(id=>$(id).addEventListener(id==="searchInput"?"input":"change",render));
+$("resetBtn").addEventListener("click",()=>{["searchInput","typeFilter","statusFilter","locationFilter"].forEach(id=>$(id).value="");render()});
+$("exportBtn").addEventListener("click",()=>{const headers=["Asset","Asset ID","Type","Assigned to","Location","Status","Last updated"];const rows=assets.map(a=>[a.name,a.id,a.type,a.owner,a.location,a.status,a.updated]);const csv=[headers,...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")).join("\r\n");const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});const url=URL.createObjectURL(blob);const link=document.createElement("a");link.href=url;link.download="cmdb-assets.csv";link.click();URL.revokeObjectURL(url);notify("CSV export downloaded.")});
+$("addBtn").addEventListener("click",()=>notify("Demo mode: edit the assets array in this HTML file to add inventory records."));
+function notify(msg){const t=$("toast");t.textContent=msg;t.style.display="block";setTimeout(()=>t.style.display="none",3200)}
+render();
+</script>
+</body>
+</html>
